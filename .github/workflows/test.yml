@@ -1,0 +1,11 @@
+name: Test workflow
+
+on:
+  push:
+
+jobs:
+  test:
+    uses: ./.github/workflows/jekyll-publish.yml
+    with:
+      working-directory: docs
+      publish: ${{ github.event_name == 'push' && github.ref_name == 'init'}}
