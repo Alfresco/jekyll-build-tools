@@ -8,4 +8,4 @@ jobs:
     uses: ./.github/workflows/jekyll-publish.yml
     with:
       working-directory: docs
-      publish: ${{ github.event_name == 'push' && github.ref_name == 'init'}}
+      publish: ${{ github.event_name == 'push' && github.ref_name == 'main'}}
