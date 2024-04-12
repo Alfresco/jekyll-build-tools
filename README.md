@@ -24,6 +24,11 @@ and publishing the website, e.g. `.github/workflows/docs.yml`:
 ```yml
 name: Publish docs
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 on:
   push:
     branches:
