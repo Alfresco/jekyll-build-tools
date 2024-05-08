@@ -18,7 +18,7 @@ gh_edit_branch: master
 gh_edit_source: docs
 gh_edit_view_mode: edit
 
-logo: "resources/hyland-alfresco-logos.png"
+logo: "images/hyland-alfresco-logos.png"
 favicon_ico: "favicon.ico"
 
 defaults:
