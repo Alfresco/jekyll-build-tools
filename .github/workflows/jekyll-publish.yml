@@ -12,6 +12,16 @@ on:
         required: true
         default: false
         type: boolean
+      validate-html:
+        description: 'Validate the HTML of the site'
+        required: false
+        default: false
+        type: boolean
+      validate-html-args:
+        description: 'Arguments to pass to htmlproofer'
+        required: false
+        default: '--ignore-missing-alt --disable-external'
+        type: string
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -43,6 +53,11 @@ jobs:
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
+
+      - name: Verify build
+        if: ${{ inputs.validate-html }}
+        run: |
+          bundle exec htmlproofer ./_site ${{ inputs.validate-html-args }}
 
       - name: Upload artifact
         if: ${{ inputs.publish }}
