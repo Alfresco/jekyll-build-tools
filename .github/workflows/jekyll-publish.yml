@@ -39,6 +39,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
+      - name: Checkout jekyll-build-tools
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          repository: Alfresco/jekyll-build-tools
+          path: .jekyll-build-tools
+
+      - name: Copy upstream files if not present
+        env:
+          JEKYLL_TOOLS_PATH: ${{ github.workspace }}/.jekyll-build-tools/docs
+        run: |
+          cp -n $JEKYLL_TOOLS_PATH/Gemfile* .
+
       - name: Setup Ruby
         uses: ruby/setup-ruby@5f19ec79cedfadb78ab837f95b87734d0003c899 # v1.173.0
         with:
