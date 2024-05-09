@@ -20,7 +20,7 @@ on:
       validate-html-args:
         description: 'Arguments to pass to htmlproofer'
         required: false
-        default: '--ignore-missing-alt --disable-external'
+        default: '--ignore-missing-alt'
         type: string
       build-tools-ref:
         description: 'The ref to checkout for the jekyll-build-tools repository'
