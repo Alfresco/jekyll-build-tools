@@ -22,6 +22,11 @@ on:
         required: false
         default: '--ignore-missing-alt --disable-external'
         type: string
+      build-tools-ref:
+        description: 'The ref to checkout for the jekyll-build-tools repository'
+        required: false
+        default: main
+        type: string
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -44,6 +49,7 @@ jobs:
         with:
           repository: Alfresco/jekyll-build-tools
           path: .jekyll-build-tools
+          ref: ${{ inputs.build-tools-ref }}
 
       - name: Copy upstream files if not present
         env:
@@ -54,7 +60,7 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@5f19ec79cedfadb78ab837f95b87734d0003c899 # v1.173.0
         with:
-          working-directory: ${{ inputs.working-directory}}
+          working-directory: ${{ inputs.working-directory }}
           bundler-cache: true
 
       - name: Setup Pages
@@ -75,7 +81,7 @@ jobs:
         if: ${{ inputs.publish }}
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
         with:
-          path: "${{ inputs.working-directory}}/_site/"
+          path: "${{ inputs.working-directory }}/_site/"
 
   deploy:
     runs-on: ubuntu-latest
