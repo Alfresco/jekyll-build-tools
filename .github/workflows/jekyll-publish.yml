@@ -77,7 +77,7 @@ jobs:
         run: >-
           bundle exec htmlproofer ./_site ${{ inputs.validate-html-args }}
           --swap-urls '^${{ steps.pages.outputs.base_path }}/:/'
-          --typhoeus='{"headers":{"User-Agent":"Mozilla/5.0 (compatible; Alfresco GitHub Actions CI)"}}'
+          --typhoeus='{"cookiefile":".cookies","cookiejar":".cookies"}'
 
       - name: Upload artifact
         if: ${{ inputs.publish }}
