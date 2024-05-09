@@ -75,7 +75,7 @@ jobs:
       - name: Verify build
         if: ${{ inputs.validate-html }}
         run: |
-          bundle exec htmlproofer ./_site ${{ inputs.validate-html-args }}
+          bundle exec htmlproofer ./_site ${{ inputs.validate-html-args }} --swap-urls '^${{ steps.pages.outputs.base_path }}/:/'
 
       - name: Upload artifact
         if: ${{ inputs.publish }}
