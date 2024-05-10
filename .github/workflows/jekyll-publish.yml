@@ -20,12 +20,7 @@ on:
       validate-html-args:
         description: 'Arguments to pass to htmlproofer'
         required: false
-        default: '--ignore-missing-alt'
-        type: string
-      build-tools-ref:
-        description: 'The ref to checkout for the jekyll-build-tools repository'
-        required: false
-        default: main
+        default: ''
         type: string
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
@@ -44,19 +39,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
-      - name: Checkout jekyll-build-tools
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-        with:
-          repository: Alfresco/jekyll-build-tools
-          path: .jekyll-build-tools
-          ref: ${{ inputs.build-tools-ref }}
-
-      - name: Copy upstream files if not present
-        env:
-          JEKYLL_TOOLS_PATH: ${{ github.workspace }}/.jekyll-build-tools/docs
-        run: |
-          cp -n $JEKYLL_TOOLS_PATH/Gemfile* .
-
       - name: Setup Ruby
         uses: ruby/setup-ruby@5f19ec79cedfadb78ab837f95b87734d0003c899 # v1.173.0
         with:
@@ -72,7 +54,16 @@ jobs:
         env:
           JEKYLL_ENV: production
 
-      - name: Verify build
+      - name: Verify that htmlproofer is available
+        if: ${{ inputs.validate-html }}
+        run: |
+          if ! bundle exec htmlproofer --version; then
+            echo "htmlproofer is not available - please add it to your Gemfile with:"
+            echo 'gem "html-proofer", "~> 5.0.0"'
+            exit 1
+          fi
+
+      - name: Verify html with htmlproofer
         if: ${{ inputs.validate-html }}
         run: >-
           bundle exec htmlproofer ./_site ${{ inputs.validate-html-args }}
