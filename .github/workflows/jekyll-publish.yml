@@ -22,7 +22,7 @@ on:
         default: false
         type: boolean
       validate-html-args:
-        description: 'Arguments to pass to htmlproofer'
+        description: 'Arguments to pass to html-proofer'
         required: false
         default: ''
         type: string
