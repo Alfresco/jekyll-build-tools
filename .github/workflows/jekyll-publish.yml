@@ -71,9 +71,11 @@ jobs:
       - name: Verify html with htmlproofer
         if: ${{ inputs.validate-html }}
         run: >-
-          bundle exec htmlproofer ./_site ${{ inputs.validate-html-args }}
+          bundle exec htmlproofer ./_site
           --swap-urls '^${{ steps.pages.outputs.base_path }}/:/'
           --typhoeus='{"cookiefile":".cookies","cookiejar":".cookies"}'
+          --hydra='{"max_concurrency": 1}'
+          ${{ inputs.validate-html-args }}
 
       - name: Upload artifact
         if: ${{ inputs.publish }}
