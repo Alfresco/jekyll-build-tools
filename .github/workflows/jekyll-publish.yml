@@ -72,7 +72,7 @@ jobs:
         if: ${{ inputs.validate-html }}
         run: >-
           bundle exec htmlproofer ./_site
-          --swap-urls '^${{ steps.pages.outputs.base_path }}/:/'
+          --swap-urls 'https\://${{ steps.pages.outputs.host }}${{ steps.pages.outputs.base_path }}/:/,^${{ steps.pages.outputs.base_path }}/:/'
           --typhoeus='{"cookiefile":".cookies","cookiejar":".cookies"}'
           --hydra='{"max_concurrency": 1}'
           ${{ inputs.validate-html-args }}
