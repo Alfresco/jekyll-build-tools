@@ -1,0 +1,28 @@
+name: Release
+
+on:
+  pull_request:
+    types:
+    - closed
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: "Release type"
+        required: true
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+    release:
+        name: Release
+        if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
+        uses: Alfresco/alfresco-build-tools/.github/workflows/reusable-release.yml@v12.4.1
+        with:
+          release_type_override: ${{ inputs.release_type }}
+          commit_username: ${{ vars.BOT_GITHUB_USERNAME }}
+          commit_email: ${{ vars.BOT_GITHUB_EMAIL }}
+        secrets:
+          BOT_GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
