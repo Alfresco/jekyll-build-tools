@@ -4,9 +4,12 @@ layout: home
 nav_order: 1
 ---
 
-# Your cool project
+# jekyll-build-tools
 
-This project serve as a template for documentation websites.
+This project serves as a template for documentation websites related to Alfresco deployments.
+
+The actual jekyll-build-tools documentation is on the [GitHub
+repository](https://github.com/Alfresco/jekyll-build-tools).
 
 ## Documentation
 
