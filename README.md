@@ -58,6 +58,10 @@ jobs:
       validate-html: true
 ```
 
+The workflow only reads the `major.minor` series from `.ruby-version` and
+installs the latest patch release of it, because new runner images ship
+prebuilt Ruby only for the latest patch of each series.
+
 See the [workflow source](.github/workflows/jekyll-publish.yml) for additional inputs.
 
 ## Local preview
