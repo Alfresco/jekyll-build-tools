@@ -58,9 +58,9 @@ jobs:
       validate-html: true
 ```
 
-The workflow only reads the `major.minor` series from `.ruby-version` and
-installs the latest patch release of it, because new runner images ship
-prebuilt Ruby only for the latest patch of each series.
+Keep `.ruby-version` at `major.minor` (e.g. `3.4`): new runner images ship
+prebuilt Ruby only for the latest patch of each series, so an exact patch pin
+eventually fails to install.
 
 See the [workflow source](.github/workflows/jekyll-publish.yml) for additional inputs.
 

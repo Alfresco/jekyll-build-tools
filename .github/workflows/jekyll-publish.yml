@@ -44,21 +44,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
 
-      # New runner images only get prebuilt Rubies for the latest patch of each series.
-      - name: Resolve Ruby series
-        id: ruby
-        run: |
-          if [ -f .ruby-version ]; then
-            echo "version=$(grep -oE '^[0-9]+\.[0-9]+' .ruby-version)" >> "$GITHUB_OUTPUT"
-          else
-            echo "version=default" >> "$GITHUB_OUTPUT"
-          fi
-
       - name: Setup Ruby
         uses: ruby/setup-ruby@afeafc3d1ab54a631816aba4c914a0081c12ff2f # v1.310.0
         with:
           working-directory: ${{ inputs.working-directory }}
-          ruby-version: ${{ steps.ruby.outputs.version || 'default' }}
           bundler-cache: true
 
       - name: Setup Pages
